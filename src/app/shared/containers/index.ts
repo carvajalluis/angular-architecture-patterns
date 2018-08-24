@@ -1,10 +1,10 @@
-import { NgModule } 				from '@angular/core';
-import { CommonModule } 		from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { ComponentsModule } from '../components';
-import { LayoutContainer }  from './layout/layout.container';
-import { LayoutSandbox } 		from './layout/layout.sandbox';
-import { TranslateModule } 	from 'ng2-translate';
+import {ComponentsModule} from '../components';
+import {LayoutContainer} from './layout/layout.container';
+import {LayoutSandbox} from './layout/layout.sandbox';
+import {TranslateModule} from 'ng2-translate';
 
 export const CONTAINERS = [
   LayoutContainer
@@ -12,12 +12,13 @@ export const CONTAINERS = [
 
 @NgModule({
   imports: [
-  	CommonModule,
-  	ComponentsModule,
-  	TranslateModule
+    CommonModule,
+    ComponentsModule,
+    TranslateModule
   ],
   declarations: CONTAINERS,
   exports: CONTAINERS,
   providers: [LayoutSandbox]
 })
-export class ContainersModule { }
+export class ContainersModule {
+}

@@ -1,4 +1,4 @@
-import {trigger, state, animate, style, transition} from '@angular/animations';
+import {trigger, animate, style, transition} from '@angular/animations';
 
 export function moveInLeft() {
   return trigger('moveInLeft', [

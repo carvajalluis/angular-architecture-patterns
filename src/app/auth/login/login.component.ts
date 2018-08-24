@@ -1,15 +1,7 @@
-import {
-  Component,
-  ChangeDetectionStrategy
-}                          from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  AbstractControl
-}                          from '@angular/forms';
-import { moveIn }          from '../../shared/animations';
-import { AuthSandbox }     from '../auth.sandbox';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {moveIn} from '../../shared/animations';
+import {AuthSandbox} from '../auth.sandbox';
 
 @Component({
   selector: 'login',
@@ -19,33 +11,34 @@ import { AuthSandbox }     from '../auth.sandbox';
   host: {'[@moveIn]': ''},
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
-  public submitted:  boolean = false;
-  public email:      AbstractControl;
-  public password:   AbstractControl;
-  public loginForm:  FormGroup;
+  public submitted = false;
+  public email: AbstractControl;
+  public password: AbstractControl;
+  public loginForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     public authSandbox: AuthSandbox
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.initLoginForm();
   }
 
   /**
-   * Builds a form instance (using FormBuilder) with corresponding validation rules 
+   * Builds a form instance (using FormBuilder) with corresponding validation rules
    */
   public initLoginForm(): void {
     this.loginForm = this.fb.group({
-      email:      ['', [Validators.required, this.authSandbox.validationService.validateEmail]],
-      password:   ['', Validators.required]
+      email: ['', [Validators.required, this.authSandbox.validationService.validateEmail]],
+      password: ['', Validators.required]
     });
 
-    this.email     = this.loginForm.controls['email'];
-    this.password  = this.loginForm.controls['password'];
+    this.email = this.loginForm.controls['email'];
+    this.password = this.loginForm.controls['password'];
   }
 
   /**
@@ -58,6 +51,8 @@ export class LoginComponent {
     event.stopPropagation();
     this.submitted = true;
 
-    if (this.loginForm.valid) this.authSandbox.login(form);
+    if (this.loginForm.valid) {
+      this.authSandbox.login(form);
+    }
   }
 }

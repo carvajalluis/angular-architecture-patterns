@@ -6,7 +6,7 @@ export interface State {
   loaded:  boolean;
   failed:  boolean;
   data:    Array<Product>;
-};
+}
 
 const INITIAL_STATE: State = {
   loading: false,
@@ -47,8 +47,7 @@ export function reducer(state = INITIAL_STATE, action: actions.Actions): State {
       return state;
     }
   }
-};
-
+}
 export const getData    = (state: State) => state.data;
 export const getLoading = (state: State) => state.loading;
 export const getLoaded  = (state: State) => state.loaded;

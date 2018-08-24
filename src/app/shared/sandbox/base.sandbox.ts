@@ -1,18 +1,18 @@
-import { Injectable } 	    from '@angular/core';
-import { Store }            from '@ngrx/store';
-import { Observable }       from 'rxjs/Observable';
-import * as store           from '../store';
-import * as authActions     from '../store/actions/auth.action';
-import { User }             from '../models';
-import { localeDateString } from '../utility';
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs/Observable';
+import * as store from '../store';
+import * as authActions from '../store/actions/auth.action';
+import {User} from '../models';
+import {localeDateString} from '../utility';
 
 export abstract class Sandbox {
 
   public loggedUser$: Observable<any> = this.appState$.select(store.getLoggedUser);
-  public culture$:    Observable<any> = this.appState$.select(store.getSelectedCulture);
-  public culture:     string;
+  public culture$: Observable<any> = this.appState$.select(store.getSelectedCulture);
+  public culture: string;
 
-  constructor(protected appState$: Store<store.State>) {}
+  protected constructor(protected appState$: Store<store.State>) {
+  }
 
   /**
    * Pulls user from local storage and saves it to the store
@@ -24,7 +24,7 @@ export abstract class Sandbox {
 
   /**
    * Formats date string based on selected culture
-   * 
+   *
    * @param value
    */
   public formatDate(value: string) {

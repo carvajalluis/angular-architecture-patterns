@@ -1,10 +1,6 @@
 import {
-  Injectable,
-  Inject,
-  forwardRef
-}                           from '@angular/core';
+  Injectable}                           from '@angular/core';
 import { Product }          from '../shared/models';
-import { ProductsSandbox }  from './products.sandbox';
 
 @Injectable()
 export class ProductsService {

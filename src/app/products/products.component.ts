@@ -1,11 +1,6 @@
-import {
-  Component,
-  ChangeDetectionStrategy
-}                           from '@angular/core';
-import { Router }           from '@angular/router';
-import { Subscription }     from "rxjs";
-import { ProductsSandbox }  from './products.sandbox';
-import { Product }          from '../shared/models';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {Router} from '@angular/router';
+import {ProductsSandbox} from './products.sandbox';
 
 @Component({
   selector: 'app-products',
@@ -45,14 +40,15 @@ export class ProductsComponent {
   constructor(
     private router: Router,
     public productsSandbox: ProductsSandbox
-  ) {}
+  ) {
+  }
 
   /**
    * Callback function for grid select event
-   * 
+   *
    * @param selected
    */
-  public onSelect({ selected }): void {
+  public onSelect({selected}): void {
     this.productsSandbox.selectProduct(selected[0]);
     this.router.navigate(['/products', selected[0].id]);
   }

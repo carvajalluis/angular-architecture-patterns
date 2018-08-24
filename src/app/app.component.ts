@@ -1,6 +1,6 @@
-import { Component }  from '@angular/core';
-import { Router }     from '@angular/router';
-import { AppSandbox } from './app.sandbox';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {AppSandbox} from './app.sandbox';
 
 @Component({
   selector: 'body',
@@ -8,17 +8,18 @@ import { AppSandbox } from './app.sandbox';
     <router-outlet></router-outlet>
     <simple-notifications [options]="appSandbox.getNotificationOptions()"></simple-notifications>
   `,
-  host:     {'[class.body-loginPage]':'isLoginPage'},
+  host: {'[class.body-loginPage]': 'isLoginPage'},
   providers: [AppSandbox]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   public isLoginPage: boolean;
 
   constructor(
     private router: Router,
     public appSandbox: AppSandbox
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.appSandbox.setupLanguage();
@@ -33,7 +34,7 @@ export class AppComponent {
   private registerEvents(): void {
     // Subscribes to route change event and sets "isLoginPage" variable in order to set correct CSS class on body tag.
     this.router.events.subscribe((route) => {
-      this.isLoginPage = route['url'] === '/login' ? true : false;
+      this.isLoginPage = route['url'] === '/login';
     });
   }
 }

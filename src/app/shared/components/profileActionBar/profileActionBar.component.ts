@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, ChangeDetectionStrategy, Input } from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'profile-action-bar',
@@ -18,7 +18,8 @@ export class ProfileActionBarComponent {
 
   @Input() userImage: string;
   @Input() userEmail: string;
-	@Output() logout: EventEmitter<any> = new EventEmitter();
+  @Output() logout: EventEmitter<any> = new EventEmitter();
 
-  constructor() {}
+  constructor() {
+  }
 }

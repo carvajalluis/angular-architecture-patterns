@@ -1,11 +1,11 @@
-import { Action }   from '@ngrx/store';
-import { Product }  from '../../models';
-import { type }     from '../../utility';
+import {Action} from '@ngrx/store';
+import {Product} from '../../models';
+import {type} from '../../utility';
 
 export const ActionTypes = {
-  LOAD:         type('[Product Details] Load'),
+  LOAD: type('[Product Details] Load'),
   LOAD_SUCCESS: type('[Product Details] Load Success'),
-  LOAD_FAIL:    type('[Product Details] Load Fail')
+  LOAD_FAIL: type('[Product Details] Load Fail')
 };
 
 /**
@@ -14,19 +14,22 @@ export const ActionTypes = {
 export class LoadAction implements Action {
   type = ActionTypes.LOAD;
 
-  constructor(public payload: number = null) { }
+  constructor(public payload: number = null) {
+  }
 }
 
 export class LoadSuccessAction implements Action {
   type = ActionTypes.LOAD_SUCCESS;
 
-  constructor(public payload: Product) { }
+  constructor(public payload: Product) {
+  }
 }
 
 export class LoadFailAction implements Action {
   type = ActionTypes.LOAD_FAIL;
 
-  constructor(public payload: any = null) { }
+  constructor(public payload: any = null) {
+  }
 }
 
 export type Actions

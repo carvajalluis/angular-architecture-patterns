@@ -1,8 +1,4 @@
-import { Observable } from 'rxjs/Rx';
-import { Store }      from '@ngrx/store';
-import { State }      from '../store';
-
-let typeCache: { [label: string]: boolean } = {};
+const typeCache: { [label: string]: boolean } = {};
 
 type Predicate = (oldValues: Array<any>, newValues: Array<any>) => boolean;
 
@@ -10,7 +6,7 @@ type Predicate = (oldValues: Array<any>, newValues: Array<any>) => boolean;
  * This function coerces a string into a string literal type.
  * Using tagged union types in TypeScript 2.0, this enables
  * powerful typechecking of our reducers.
- * 
+ *
  * Since every action label passes through this function it
  * is a good place to ensure all of our action labels are unique.
  *
@@ -35,8 +31,7 @@ export function type<T>(label: T | ''): T {
  * @param conditions
  */
 export function distinctChanges(oldValues: Array<any>, newValues: Array<any>, conditions: Predicate[]): boolean {
-  if (conditions.every(cond => cond(oldValues, newValues))) return false;
-  return true;
+  return !conditions.every(cond => cond(oldValues, newValues));
 }
 
 /**
@@ -45,9 +40,11 @@ export function distinctChanges(oldValues: Array<any>, newValues: Array<any>, co
  * @param val
  */
 export function isObject(val: any) {
-  if (val === null) return false;
+  if (val === null) {
+    return false;
+  }
 
-  return ( (typeof val === 'function') || (typeof val === 'object') );
+  return ((typeof val === 'function') || (typeof val === 'object'));
 }
 
 /**
@@ -56,7 +53,9 @@ export function isObject(val: any) {
  * @param s
  */
 export function capitalize(s: string) {
-  if (!s || typeof s !== 'string') return s;
+  if (!s || typeof s !== 'string') {
+    return s;
+  }
   return s && s[0].toUpperCase() + s.slice(1);
 }
 
@@ -66,7 +65,9 @@ export function capitalize(s: string) {
  * @param s
  */
 export function uncapitalize(s: string) {
-  if (!s || typeof s !== 'string') return s;
+  if (!s || typeof s !== 'string') {
+    return s;
+  }
   return s && s[0].toLowerCase() + s.slice(1);
 }
 
@@ -77,21 +78,27 @@ export function uncapitalize(s: string) {
  * @param preservePath
  */
 export function flattenObject(ob: any, preservePath: boolean = false): any {
-  var toReturn = {};
+  const toReturn = {};
 
-  for (var i in ob) {
-    if (!ob.hasOwnProperty(i)) continue;
+  for (const i in ob) {
+    if (!ob.hasOwnProperty(i)) {
+      continue;
+    }
 
-    if ((typeof ob[i]) == 'object') {
-      var flatObject = flattenObject(ob[i], preservePath);
-      for (var x in flatObject) {
-        if (!flatObject.hasOwnProperty(x)) continue;
+    if ((typeof ob[i]) === 'object') {
+      const flatObject = flattenObject(ob[i], preservePath);
+      for (const x in flatObject) {
+        if (!flatObject.hasOwnProperty(x)) {
+          continue;
+        }
 
-        let path = preservePath ? (i + '.' + x) : x;
+        const path = preservePath ? (`${i}.${x}`) : x;
 
         toReturn[path] = flatObject[x];
       }
-    } else toReturn[i] = ob[i];
+    } else {
+      toReturn[i] = ob[i];
+    }
   }
 
   return toReturn;
@@ -104,6 +111,6 @@ export function flattenObject(ob: any, preservePath: boolean = false): any {
  * @param culture
  */
 export function localeDateString(dateString: string, culture: string = 'en-EN'): string {
-  let date = new Date(dateString);
+  const date = new Date(dateString);
   return date.toLocaleDateString(culture);
 }

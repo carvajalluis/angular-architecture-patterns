@@ -1,26 +1,19 @@
-import { Injectable } 	 from '@angular/core';
-import { Router }        from '@angular/router';
-import { Store }      	 from '@ngrx/store';
-import { Subscription }  from "rxjs";
-import { Sandbox } 			 from '../shared/sandbox/base.sandbox';
-import * as store     	 from '../shared/store';
-import * as authActions  from '../shared/store/actions/auth.action';
-import { User }          from '../shared/models';
-import {
-  UtilService,
-  ValidationService
-}                        from '../shared/utility';
-import {
-  LoginForm,
-  RegisterForm
-}                        from '../shared/models';
+import {Injectable} from '@angular/core';
+import {Router} from '@angular/router';
+import {Store} from '@ngrx/store';
+import {Subscription} from 'rxjs/Subscription';
+import {Sandbox} from '../shared/sandbox/base.sandbox';
+import * as store from '../shared/store';
+import * as authActions from '../shared/store/actions/auth.action';
+import {LoginForm, RegisterForm, User} from '../shared/models';
+import {UtilService, ValidationService} from '../shared/utility';
 
 @Injectable()
 export class AuthSandbox extends Sandbox {
 
   public loginLoading$ = this.appState$.select(store.getAuthLoading);
-  public loginLoaded$  = this.appState$.select(store.getAuthLoaded);
-  public loggedUser$   = this.appState$.select(store.getLoggedUser);
+  public loginLoaded$ = this.appState$.select(store.getAuthLoaded);
+  public loggedUser$ = this.appState$.select(store.getLoggedUser);
 
   private subscriptions: Array<Subscription> = [];
 
@@ -32,6 +25,15 @@ export class AuthSandbox extends Sandbox {
   ) {
     super(appState$);
     this.registerAuthEvents();
+  }
+
+  /**
+   * Uncapitalize response keys
+   *
+   * @param user
+   */
+  static authAdapter(user: any): any {
+    return Object.assign({}, user, {email: user.Email});
   }
 
   /**
@@ -71,16 +73,7 @@ export class AuthSandbox extends Sandbox {
     // Subscribes to logged user data and save/remove it from the local storage
     this.subscriptions.push(this.loggedUser$.subscribe((user: User) => {
       if (user.isLoggedIn) user.save();
-      else                 user.remove();
+      else user.remove();
     }));
-  }
-
-  /**
-   * Uncapitalize response keys
-   *
-   * @param user
-   */
-  static authAdapter(user: any): any {
-    return Object.assign({}, user, { email: user.Email});
   }
 }

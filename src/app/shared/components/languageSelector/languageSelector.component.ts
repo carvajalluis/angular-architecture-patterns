@@ -1,16 +1,11 @@
-import {
-  Component,
-  Output,
-  Input,
-  EventEmitter,
-  ChangeDetectionStrategy,
-  ElementRef
-} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'language-selector',
   template: `
-    <button (click)="onToggle()" class="language-selector-anchor" [ngClass]="{'active': show}" data-toggle="lang-dropdown">{{selectedLanguage}}</button>
+    <button (click)="onToggle()" class="language-selector-anchor" [ngClass]="{'active': show}" data-toggle="lang-dropdown">
+      {{selectedLanguage}}
+    </button>
 
     <div class="dropdown-pane top" id="lang-dropdown" data-dropdown *ngIf="show">
       <span *ngFor="let lang of availableLanguages" (click)="selectLanguage(lang)">{{ lang.name }}</span>
@@ -26,11 +21,12 @@ export class LanguageSelectorComponent {
 
   @Input() selectedLanguage: string;
   @Input() availableLanguages: Array<any>;
-	@Output() select: EventEmitter<any> = new EventEmitter();
+  @Output() select: EventEmitter<any> = new EventEmitter();
 
-	public show: boolean = false;
+  public show = false;
 
-  constructor(private elementRef: ElementRef) {}
+  constructor(private elementRef: ElementRef) {
+  }
 
   public onDocumentClick(event): void {
     if (!this.elementRef.nativeElement.contains(event.target)) {

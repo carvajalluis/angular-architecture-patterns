@@ -1,8 +1,7 @@
-import { Component }        from '@angular/core';
-import { Observable }       from 'rxjs/Observable';
-import { Subscription }     from "rxjs";
-import { LayoutSandbox }    from './layout.sandbox';
-import { ConfigService }    from '../../../app-config.service';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Subscription} from 'rxjs';
+import {LayoutSandbox} from './layout.sandbox';
+import {ConfigService} from '../../../app-config.service';
 
 @Component({
   selector: 'app-layout',
@@ -22,10 +21,10 @@ import { ConfigService }    from '../../../app-config.service';
     </div>
   `
 })
-export class LayoutContainer {
+export class LayoutContainer implements OnInit, OnDestroy {
 
-  public userImage:     string = '';
-  public userEmail:     string = '';
+  public userImage = '';
+  public userEmail = '';
   private assetsFolder: string;
 
   private subscriptions: Array<Subscription> = [];
@@ -49,8 +48,8 @@ export class LayoutContainer {
     // Subscribes to user changes
     this.subscriptions.push(this.layoutSandbox.user$.subscribe(user => {
       if (user) {
-        this.userImage  = this.assetsFolder + 'user.jpg';
-        this.userEmail  = user.email;
+        this.userImage = `${this.assetsFolder}user.jpg`;
+        this.userEmail = user.email;
       }
     }));
   }

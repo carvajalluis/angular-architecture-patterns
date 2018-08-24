@@ -1,18 +1,7 @@
-import {
-  Component,
-  OnInit
-}                       from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  AbstractControl
-}                       from '@angular/forms';
-import {
-  moveIn,
-  fallIn
-}                       from '../../shared/animations';
-import { AuthSandbox }  from '../auth.sandbox';
+import {Component, OnInit} from '@angular/core';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {fallIn, moveIn} from '../../shared/animations';
+import {AuthSandbox} from '../auth.sandbox';
 
 @Component({
   selector: 'register',
@@ -21,12 +10,12 @@ import { AuthSandbox }  from '../auth.sandbox';
   animations: [moveIn(), fallIn()],
   host: {'[@moveIn]': ''}
 })
-export class RegisterComponent {
-  public submitted:       boolean = false;
-  public email:           AbstractControl;
-  public password:        AbstractControl;
+export class RegisterComponent implements OnInit {
+  public submitted = false;
+  public email: AbstractControl;
+  public password: AbstractControl;
   public confirmPassword: AbstractControl;
-  public registerForm:    FormGroup;
+  public registerForm: FormGroup;
   private validators;
 
   constructor(
@@ -41,21 +30,21 @@ export class RegisterComponent {
   }
 
   /**
-   * Builds a form instance (using FormBuilder) with corresponding validation rules 
+   * Builds a form instance (using FormBuilder) with corresponding validation rules
    */
   public initRegisterForm(): void {
     this.registerForm = this.fb.group(
       {
-        email:            ['', [Validators.required, this.validators.validateEmail]],
-        password:         ['', [Validators.required, Validators.minLength(6)]],
-        confirmPassword:  ['', [Validators.required, Validators.minLength(6)]]
+        email: ['', [Validators.required, this.validators.validateEmail]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        confirmPassword: ['', [Validators.required, Validators.minLength(6)]]
       },
-      { validator: this.validators.matchingPasswords('password', 'confirmPassword') }
+      {validator: this.validators.matchingPasswords('password', 'confirmPassword')}
     );
 
-    this.email            = this.registerForm.controls['email'];
-    this.password         = this.registerForm.controls['password'];
-    this.confirmPassword  = this.registerForm.controls['confirmPassword'];
+    this.email = this.registerForm.controls['email'];
+    this.password = this.registerForm.controls['password'];
+    this.confirmPassword = this.registerForm.controls['confirmPassword'];
   }
 
   /**
@@ -67,7 +56,9 @@ export class RegisterComponent {
   public onSubmit(event: Event, form: any): void {
     event.stopPropagation();
     this.submitted = true;
-    
-    if (this.registerForm.valid) this.authSandbox.register(form);
+
+    if (this.registerForm.valid) {
+      this.authSandbox.register(form);
+    }
   }
 }
