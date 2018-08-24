@@ -53,7 +53,7 @@ export function methodBuilder(method: number) {
 export function paramBuilder(paramName: string) {
   return function(key: string) {
     return function(target: HttpService, propertyKey: string | symbol, parameterIndex: number) {
-      var metadataKey = `${propertyKey}_${paramName}_parameters`;
+      var metadataKey = `${propertyKey as string}_${paramName}_parameters`;
       var paramObj: any = {
           key: key,
           parameterIndex: parameterIndex
